@@ -227,15 +227,21 @@
         const layers = document.querySelectorAll('.layer');
 
         if (window.matchMedia("(pointer: fine)").matches) {
+            const layerOrigins = Array.from(layers).map(layer => ({
+                layer,
+                baseX: Number(gsap.getProperty(layer, 'x')) || 0,
+                baseY: Number(gsap.getProperty(layer, 'y')) || 0
+            }));
+
             scene.addEventListener('mousemove', (e) => {
                 const x = e.clientX - window.innerWidth / 2;
                 const y = e.clientY - window.innerHeight / 2;
 
-                layers.forEach(layer => {
-                    const speed = layer.getAttribute('data-speed');
+                layerOrigins.forEach(({ layer, baseX, baseY }) => {
+                    const speed = Number(layer.getAttribute('data-speed')) || 0;
                     gsap.to(layer, {
-                        x: -(x * speed),
-                        y: -(y * speed),
+                        x: baseX - (x * speed),
+                        y: baseY - (y * speed),
                         duration: 0.8,
                         ease: "power2.out",
                         overwrite: "auto"
@@ -244,8 +250,8 @@
             });
 
             scene.addEventListener('mouseleave', () => {
-                layers.forEach(layer => {
-                    gsap.to(layer, { x: 0, y: 0, duration: 1.5, ease: "power3.out" });
+                layerOrigins.forEach(({ layer, baseX, baseY }) => {
+                    gsap.to(layer, { x: baseX, y: baseY, duration: 1.5, ease: "power3.out" });
                 });
             });
         }
