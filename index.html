@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASFANA - CHISA WUWA</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@700;900&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#E6232D',
+                        dark: '#1A1A1A',
+                        light: '#F4F4F4'
+                    },
+                    fontFamily: {
+                        display: ['Oswald', 'sans-serif'],
+                        tech: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #1A1A1A;
+        }
+
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .split-bg {
+            background: linear-gradient(105deg, #1A1A1A 55%, #F4F4F4 55%);
+        }
+
+        .layer {
+            will-change: transform;
+        }
+
+        ::selection {
+            background: #E6232D;
+            color: white;
+        }
+
+        .glitch-hover:hover {
+            text-shadow: 2px 0 #E6232D, -2px 0 #1A1A1A;
+            transform: translateX(2px);
+            transition: all 0.1s ease;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-fade-bottom {
+                background: linear-gradient(to top, rgba(26, 26, 26, 0.95) 0%, rgba(26, 26, 26, 0.5) 60%, transparent 100%);
+            }
+
+            .split-bg {
+                background: linear-gradient(180deg, #1A1A1A 60%, #F4F4F4 100%);
+            }
+        }
+    </style>
+</head>
+
+<body class="font-tech text-white h-[100dvh] w-screen selection:bg-brand flex flex-col">
+
+    <div class="noise"></div>
+
+    <main id="scene" class="absolute inset-0 w-full h-full flex items-center justify-center split-bg overflow-hidden">
+
+        <div class="layer absolute inset-0 flex items-center justify-start pl-[4vw] md:pl-[8vw] z-0" data-speed="0.015">
+            <h1
+                class="font-display text-[20vw] md:text-[11vw] font-black uppercase leading-none tracking-[0.08em] mix-blend-difference text-white/10 select-none -translate-y-14 md:-translate-y-8">
+                WUTHERING
+            </h1>
+        </div>
+        <div class="layer absolute inset-0 flex items-center justify-end pr-[4vw] md:pr-[8vw] z-0 translate-y-28 md:translate-y-36"
+            data-speed="0.03">
+            <h1
+                class="font-display text-[20vw] md:text-[11vw] font-black uppercase leading-none tracking-[0.08em] mix-blend-overlay text-black/10 select-none">
+                WAVES
+            </h1>
+        </div>
+
+        <div class="layer absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[95%] md:max-w-4xl h-[70vh] md:h-[90vh] z-10 flex items-end justify-center pointer-events-none"
+            data-speed="0.05">
+            <img src="chisa.png" class="h-full object-contain drop-shadow-2xl pointer-events-auto">
+        </div>
+
+        <div class="layer absolute inset-0 pointer-events-none z-20" data-speed="0.09">
+            <div class="absolute top-[15%] left-[5%] md:top-[20%] md:left-[10%]">
+                <div class="w-32 h-32 md:w-56 md:h-56 bg-brand/90 flex items-center justify-center font-display text-6xl md:text-9xl font-black rotate-12 mix-blend-multiply"
+                    style="clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);">
+                    は
+                </div>
+            </div>
+            <div class="absolute bottom-[20%] right-[5%] md:bottom-[15%] md:right-[15%]">
+                <div
+                    class="w-40 h-20 md:w-64 md:h-32 bg-brand flex items-center justify-center font-display text-7xl md:text-9xl font-black -rotate-12 mix-blend-multiply skew-x-12">
+                    咲
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="absolute inset-0 z-30 pointer-events-none flex flex-col justify-between p-4 sm:p-6 md:p-12">
+
+        <header class="flex justify-between items-start pointer-events-auto w-full">
+            <div class="ui-element flex items-end gap-2 md:gap-4 mix-blend-difference text-white">
+                <h2
+                    class="text-3xl sm:text-4xl md:text-6xl font-display font-black tracking-wider glitch-hover cursor-pointer leading-none">
+                    Masfana</h2>
+                <span
+                    class="text-brand text-lg sm:text-2xl md:text-4xl font-display font-black leading-none mb-1">マスファナ</span>
+            </div>
+
+            <div class="ui-element flex flex-col items-end gap-2 text-right mix-blend-difference text-white">
+                <div class="flex gap-[2px] opacity-70">
+                    <div class="w-1.5 h-1.5 border border-white"></div>
+                    <div class="w-1.5 h-1.5 border border-white"></div>
+                    <div class="w-1.5 h-1.5 bg-brand"></div>
+                    <div class="w-1.5 h-1.5 border border-white"></div>
+                </div>
+                <p
+                    class="text-black     tracking-[0.3em] md:tracking-[0.5em] uppercase text-[8px] md:text-xs font-bold opacity-80 whitespace-nowrap">
+                    Wuthering Waves</p>
+                <div class="w-full h-px bg-white/30 mt-1"></div>
+            </div>
+        </header>
+
+        <aside
+            class="absolute right-4 sm:right-6 md:right-12 top-1/3 flex flex-col gap-4 md:gap-6 pointer-events-auto ui-element z-40">
+
+            <div
+                class="group relative w-10 h-10 md:w-14 md:h-14 bg-dark border-2 border-brand rotate-45 flex items-center justify-center cursor-pointer shadow-[0_0_20px_rgba(230,35,45,0.2)] hover:bg-brand transition-colors duration-300">
+                <div class="absolute inset-1 border border-brand/50 group-hover:border-dark/50 transition-colors"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2"
+                    class="-rotate-45 w-5 h-5 md:w-6 md:h-6 text-brand group-hover:text-dark transition-colors duration-300">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M12 9v6" stroke-width="1.5" />
+                </svg>
+            </div>
+
+            <div
+                class="group relative w-10 h-10 md:w-14 md:h-14 bg-dark border-2 border-white rotate-45 flex items-center justify-center cursor-pointer shadow-lg hover:bg-white transition-colors duration-300">
+                <div class="absolute w-[calc(100%+8px)] h-[calc(100%+8px)] border border-white/20 -inset-1"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2"
+                    class="-rotate-45 w-4 h-4 md:w-5 md:h-5 text-white group-hover:text-dark transition-colors duration-300">
+                    <path d="m12 2 9 14H3z" />
+                    <path d="m12 10 4 6H8z" />
+                </svg>
+            </div>
+
+        </aside>
+
+        <footer
+            class="pointer-events-auto flex flex-col gap-4 md:gap-6 w-full z-40 mobile-fade-bottom pt-12 md:pt-0 -mx-4 px-4 sm:mx-0 sm:px-0">
+            <div
+                class="ui-element flex flex-col md:flex-row justify-between items-start md:items-end border-b-2 border-white/20 md:pb-4 gap-4 mix-blend-difference text-white w-full">
+                <h3
+                    class="font-display text-4xl sm:text-5xl md:text-7xl font-black tracking-[0.3em] md:tracking-[0.5em] uppercase leading-none">
+                    CHISA</h3>
+
+                <div class="flex gap-2 md:gap-4 w-full md:w-auto pb-4 md:pb-0">
+                    <button
+                        class="flex-1 md:flex-none px-4 md:px-8 py-2 md:py-3 border border-white/30 bg-white/10 text-white hover:bg-white hover:text-dark transition-colors text-xs md:text-sm font-bold tracking-widest uppercase">Profile</button>
+                    <button
+                        class="flex-1 md:flex-none px-4 md:px-8 py-2 md:py-3 bg-brand text-white hover:bg-red-700 transition-colors text-xs md:text-sm font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(230,35,45,0.4)]">Combat</button>
+                </div>
+            </div>
+
+            <div class="ui-element w-full md:max-w-2xl mix-blend-difference text-white pb-2 md:pb-0">
+                <div class="w-12 h-1 bg-brand mb-3 md:mb-4"></div>
+                <p class="text-white/70 text-xs sm:text-sm md:text-base leading-relaxed font-medium">
+                    The day they put this collar on me, it rained heavily in my hometown. I watched the downpour and
+                    rolling stormclouds through the window. Oddly enough, I felt a sense of relief. My Resonance
+                    abilities were finally restrained. And I told myself, <span
+                        class="text-white font-bold inline-block mt-1">"Now they won't hate you anymore."</span>
+                </p>
+            </div>
+        </footer>
+
+    </div>
+
+    <div id="cursor"
+        class="fixed top-0 left-0 w-8 h-8 border border-brand/80 rounded-full pointer-events-none z-[100] transform -translate-x-1/2 -translate-y-1/2 mix-blend-screen transition-transform duration-75 ease-out flex items-center justify-center hidden md:flex backdrop-blur-[1px]">
+        <div class="w-1.5 h-1.5 bg-brand rounded-full"></div>
+    </div>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mousedown', () => cursor.classList.add('scale-50', 'bg-brand/20'));
+            document.addEventListener('mouseup', () => cursor.classList.remove('scale-50', 'bg-brand/20'));
+        } else {
+            cursor.style.display = 'none';
+        }
+
+        const scene = document.getElementById('scene');
+        const layers = document.querySelectorAll('.layer');
+
+        if (window.matchMedia("(pointer: fine)").matches) {
+            const layerOrigins = Array.from(layers).map(layer => ({
+                layer,
+                baseX: Number(gsap.getProperty(layer, 'x')) || 0,
+                baseY: Number(gsap.getProperty(layer, 'y')) || 0
+            }));
+
+            scene.addEventListener('mousemove', (e) => {
+                const x = e.clientX - window.innerWidth / 2;
+                const y = e.clientY - window.innerHeight / 2;
+
+                layerOrigins.forEach(({ layer, baseX, baseY }) => {
+                    const speed = Number(layer.getAttribute('data-speed')) || 0;
+                    gsap.to(layer, {
+                        x: baseX - (x * speed),
+                        y: baseY - (y * speed),
+                        duration: 0.8,
+                        ease: "power2.out",
+                        overwrite: "auto"
+                    });
+                });
+            });
+
+            scene.addEventListener('mouseleave', () => {
+                layerOrigins.forEach(({ layer, baseX, baseY }) => {
+                    gsap.to(layer, { x: baseX, y: baseY, duration: 1.5, ease: "power3.out" });
+                });
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const tl = gsap.timeline();
+            gsap.set('.layer h1', { y: 150, opacity: 0, scale: 0.9 });
+            gsap.set('#character-placeholder', { y: 100, opacity: 0, filter: 'blur(10px)' });
+            gsap.set('.ui-element', { y: 30, opacity: 0 });
+            gsap.set('.layer div[class*="bg-brand"]', { scale: 0, opacity: 0 });
+            tl.to('.layer h1', {
+                y: 0, opacity: 1, scale: 1,
+                duration: 1.5, stagger: 0.15,
+                ease: "power4.out"
+            })
+                .to('#character-placeholder', {
+                    y: 0, opacity: 1, filter: 'blur(0px)',
+                    duration: 1.5,
+                    ease: "power3.out"
+                }, "-=1.2")
+                .to('.layer div[class*="bg-brand"]', {
+                    scale: 1, opacity: 1,
+                    duration: 1.2, stagger: 0.2,
+                    ease: "back.out(1.5)"
+                }, "-=1")
+                .to('.ui-element', {
+                    y: 0, opacity: 1,
+                    duration: 1, stagger: 0.1,
+                    ease: "power2.out"
+                }, "-=0.8");
+        });
+    </script>
+</body>
+
+</html>
