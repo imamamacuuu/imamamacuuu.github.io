@@ -86,13 +86,14 @@
 
     <main id="scene" class="absolute inset-0 w-full h-full flex items-center justify-center split-bg overflow-hidden">
 
-        <div class="layer absolute inset-0 flex items-center justify-start pl-[4vw] md:pl-[8vw] z-0" data-speed="0.015">
+        <div class="layer absolute inset-0 flex items-center justify-start pl-[4vw] md:pl-[8vw] pt-4 md:pt-6 z-0"
+            data-speed="0.015">
             <h1
                 class="font-display text-[20vw] md:text-[11vw] font-black uppercase leading-none tracking-[0.08em] mix-blend-difference text-white/10 select-none -translate-y-14 md:-translate-y-8">
                 WUTHERING
             </h1>
         </div>
-        <div class="layer absolute inset-0 flex items-center justify-end pr-[4vw] md:pr-[8vw] z-0 translate-y-28 md:translate-y-36"
+        <div class="layer absolute inset-0 flex items-center justify-end pr-[4vw] md:pr-[8vw] pt-4 md:pt-6 z-0 translate-y-28 md:translate-y-36"
             data-speed="0.03">
             <h1
                 class="font-display text-[20vw] md:text-[11vw] font-black uppercase leading-none tracking-[0.08em] mix-blend-overlay text-black/10 select-none">
@@ -141,7 +142,7 @@
                     <div class="w-1.5 h-1.5 border border-white"></div>
                 </div>
                 <p
-                    class="text-black     tracking-[0.3em] md:tracking-[0.5em] uppercase text-[8px] md:text-xs font-bold opacity-80 whitespace-nowrap">
+                    class="lg:text-black sm:text-white  tracking-[0.3em] md:tracking-[0.5em] uppercase text-[8px] md:text-xs font-bold opacity-80 whitespace-nowrap">
                     Wuthering Waves</p>
                 <div class="w-full h-px bg-white/30 mt-1"></div>
             </div>
@@ -176,22 +177,22 @@
         </aside>
 
         <footer
-            class="pointer-events-auto flex flex-col gap-4 md:gap-6 w-full z-40 mobile-fade-bottom pt-12 md:pt-0 -mx-4 px-4 sm:mx-0 sm:px-0">
+            class="pointer-events-auto absolute inset-x-0 bottom-0 md:left-12 md:right-12 md:bottom-12 flex flex-col gap-4 md:gap-6 z-40 mobile-fade-bottom pt-12 md:pt-0 px-0">
             <div
                 class="ui-element flex flex-col md:flex-row justify-between items-start md:items-end border-b-2 border-white/20 md:pb-4 gap-4 mix-blend-difference text-white w-full">
                 <h3
                     class="font-display text-4xl sm:text-5xl md:text-7xl font-black tracking-[0.3em] md:tracking-[0.5em] uppercase leading-none">
                     CHISA</h3>
 
-                <div class="flex gap-2 md:gap-4 w-full md:w-auto pb-4 md:pb-0">
+                <div class="flex gap-2 md:gap-4 w-full md:w-auto pb-0 md:pb-0">
                     <button
-                        class="flex-1 md:flex-none px-4 md:px-8 py-2 md:py-3 border border-white/30 bg-white/10 text-white hover:bg-white hover:text-dark transition-colors text-xs md:text-sm font-bold tracking-widest uppercase">Profile</button>
+                        class="flex-1 md:flex-none px-4 md:px-8 py-2 md:py-3 border border-white/30 bg-gray-800/10 text-white hover:bg-white hover:text-dark transition-colors text-xs md:text-sm font-bold tracking-widest uppercase">Profile</button>
                     <button
                         class="flex-1 md:flex-none px-4 md:px-8 py-2 md:py-3 bg-brand text-white hover:bg-red-700 transition-colors text-xs md:text-sm font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(230,35,45,0.4)]">Combat</button>
                 </div>
             </div>
 
-            <div class="ui-element w-full md:max-w-2xl mix-blend-difference text-white pb-2 md:pb-0">
+            <div class="ui-element w-full md:max-w-2xl mix-blend-difference text-white pb-0 md:pb-0">
                 <div class="w-12 h-1 bg-brand mb-3 md:mb-4"></div>
                 <p class="text-white/70 text-xs sm:text-sm md:text-base leading-relaxed font-medium">
                     The day they put this collar on me, it rained heavily in my hometown. I watched the downpour and
@@ -226,21 +227,15 @@
         const layers = document.querySelectorAll('.layer');
 
         if (window.matchMedia("(pointer: fine)").matches) {
-            const layerOrigins = Array.from(layers).map(layer => ({
-                layer,
-                baseX: Number(gsap.getProperty(layer, 'x')) || 0,
-                baseY: Number(gsap.getProperty(layer, 'y')) || 0
-            }));
-
             scene.addEventListener('mousemove', (e) => {
                 const x = e.clientX - window.innerWidth / 2;
                 const y = e.clientY - window.innerHeight / 2;
 
-                layerOrigins.forEach(({ layer, baseX, baseY }) => {
-                    const speed = Number(layer.getAttribute('data-speed')) || 0;
+                layers.forEach(layer => {
+                    const speed = layer.getAttribute('data-speed');
                     gsap.to(layer, {
-                        x: baseX - (x * speed),
-                        y: baseY - (y * speed),
+                        x: -(x * speed),
+                        y: -(y * speed),
                         duration: 0.8,
                         ease: "power2.out",
                         overwrite: "auto"
@@ -249,8 +244,8 @@
             });
 
             scene.addEventListener('mouseleave', () => {
-                layerOrigins.forEach(({ layer, baseX, baseY }) => {
-                    gsap.to(layer, { x: baseX, y: baseY, duration: 1.5, ease: "power3.out" });
+                layers.forEach(layer => {
+                    gsap.to(layer, { x: 0, y: 0, duration: 1.5, ease: "power3.out" });
                 });
             });
         }
